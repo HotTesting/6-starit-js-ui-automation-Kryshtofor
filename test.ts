@@ -84,15 +84,8 @@ describe('WDIO', function () {
 
         const registerButton = $('[name=create_account]')
         registerButton.click()
-
         browser.pause(1000)
     })
 
-    it('Sign in to account', function () {
-        browser.url('/create_account')
-
-        const signinButton = $('')
-
-    })
 })
 
