@@ -1,0 +1,4 @@
+# installed npm dependencies
+node_modules/
+# compiled js and debug files
+built/
