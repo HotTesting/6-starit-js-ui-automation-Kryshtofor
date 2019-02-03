@@ -3,13 +3,15 @@ require('ts-node').register()
 
 exports.config = {
     specs: [
-        './tests/**/*.ts'
+        './tests/*'
     ],
     port: '9515',
     path: '/',
     services: ['chromedriver'],
     capabilities: [{
-        browserName: 'chrome'
+        browserName: 'chrome',
+        enableVNC: true,
+        maxInstances: 1
     }],
     sync: true,
     logLevel: 'silent',
@@ -18,10 +20,11 @@ exports.config = {
     baseUrl: 'http://ip-5236.sunline.net.ua:38015',
     framework: 'mocha',
     mochaOpts: {
-        ui: 'bdd'
+        ui: 'bdd',
+        timeout: 120000
     },
 
     before: function() {
-        browser.timeouts('implicit', 1000);
+        browser.timeouts('implicit', 2000);
     }
 }
