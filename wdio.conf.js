@@ -25,6 +25,6 @@ exports.config = {
     },
 
     before: function() {
-        browser.timeouts('implicit', 2000);
+        browser.timeouts('implicit', 1000);
     }
 }

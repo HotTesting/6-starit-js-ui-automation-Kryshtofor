@@ -1,36 +1,40 @@
 import { expect } from 'chai';
+import { Checkout } from './pageObjects/checkout';
+import { BuyPopularProducts } from './pageObjects/buyPopularProducts';
 
 describe ('Guest shopping', function () {
 
     it('Buy yellow and red ducks', function() {
         browser.url('/');
-        $('a[href="#popular-products"]').click();
-        $('#popular-products [alt="Yellow Duck"]').click();
-        $('.form-control [value="Small"]').click();
-        $('[name="quantity"]').setValue(2);
-        $('.btn-success').click();
-        $('.featherlight .featherlight-close').click();
-        $('#popular-products [alt="Red Duck"]').click();
-        $('[name="quantity"]').setValue(2);
-        $('.btn-success').click();
-        $('.featherlight .featherlight-close').click();
+        const popularDucks = new BuyPopularProducts();
+        popularDucks.selectTabPopularProducts();
+        popularDucks.selectYellowDuck();
+        popularDucks.selectSmallSize();
+        popularDucks.setQuantity(2);
+        popularDucks.addToCart();
+        popularDucks.closeProductWindow();
+        popularDucks.selectRedDuck();
+        popularDucks.setQuantity(2);
+        popularDucks.addToCart();
+        popularDucks.closeProductWindow();
 
-        $('#cart img[src="http://ip-5236.sunline.net.ua:38015/includes/templates/default.catalog/images/cart_filled.svg"]').click();
+        const cart = $('#cart img[src="http://ip-5236.sunline.net.ua:38015/includes/templates/default.catalog/images/cart_filled.svg"]').click();
         const checkoutUser = browser.getUrl();
         expect(checkoutUser).to.equal('http://ip-5236.sunline.net.ua:38015/checkout');
 
-        $('[name=company]').setValue("Umbrella"); 
-        $('[name=tax_id]').setValue("777");
-        $('[name=firstname]').setValue("Dmitriy");
-        $('[name=lastname]').setValue("Kryshtofor");
-        $('[name=address1]').setValue('Borisa Gmury str');
-        $('[name=address2]').setValue('Parkovaya str');   
-        $('[name=postcode]').setValue('02140');
-        $('[name=city]').setValue('Kyiv');
-        $('[value=UA]').click();
-        $('.row [name=email]').setValue('kryshtofor90@gmail.com');
-        $('[name=phone]').setValue('+380660846270');
-        $('#box-checkout-customer [name="save_customer_details"]').click();
+        const checkout = new Checkout()
+        checkout.typeCompany("Umbrella");
+        checkout.typeTaxId("777");
+        checkout.typeFirstName("Dmitriy");
+        checkout.typeLastName("Kryshtofor");
+        checkout.typeAddress1("Borisa Gmuri str");
+        checkout.typeAddress2("Parkovaya str");
+        checkout.typePostCode("02140");
+        checkout.typeCity("Kyiv");
+        checkout.selectCoutry();
+        checkout.typeEmail("kryshtofor90@gmail.com");
+        checkout.typePhone("+380660846270");
+        checkout.saveChanges();
 
         const alertForExsistingAccount = $('.alert-info').getText();
         expect(alertForExsistingAccount).to.equal('We found an existing customer account that will be used for this order');
