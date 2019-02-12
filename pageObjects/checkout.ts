@@ -1,4 +1,18 @@
 export class Checkout {
+    fillCostomerDetails(customerDetails: ICustomerDetails): any {
+        this.typeCompany(customerDetails.company);
+        this.typeTaxId(customerDetails.taxID);
+        this.typeFirstName(customerDetails.firstName);
+        this.typeLastName(customerDetails.lastName);
+        this.typeAddress1(customerDetails.address1);
+        this.typeAddress2(customerDetails.address2);
+        this.typePostCode(customerDetails.postalCode);
+        this.typeCity(customerDetails.city);
+        this.selectCoutry();
+        this.typeEmail(customerDetails.email);
+        this.typePhone(customerDetails.phone);
+        this.saveChanges();    
+    }
     saveChanges(): any {
         const saveCustomerBtn = '#box-checkout-customer [name="save_customer_details"]'
         $(saveCustomerBtn).click();
@@ -39,3 +53,20 @@ export class Checkout {
     }
 
 }
+
+interface ICustomerDetails {
+    firstName: string
+    lastName: string
+    address1: string
+    address2: string
+    postalCode: string
+    city: string
+    email: string
+    phone: string
+    company?: string
+    taxID?: string
+    country?: string
+    state?: string
+}
+
+export const checkout = new Checkout();

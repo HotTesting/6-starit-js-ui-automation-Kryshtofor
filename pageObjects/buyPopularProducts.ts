@@ -1,4 +1,20 @@
 export class BuyPopularProducts {
+    buyRedDucks(quantity: number): any {
+        popularDucks.selectRedDuck();
+        popularDucks.setQuantity(quantity);
+        popularDucks.addToCart();
+        popularDucks.closeProductWindow();
+    }
+    buyYellowDucks(quantity: number): any {
+        popularDucks.selectYellowDuck();
+        popularDucks.selectSmallSize();
+        popularDucks.setQuantity(quantity);
+        popularDucks.addToCart();
+        popularDucks.closeProductWindow();
+    }
+    clickCartBtn(): any {
+        $('#cart img[src*="/includes/templates/default.catalog/images/cart_filled.svg"]').click();
+    }
     selectRedDuck(): any {
         $('#popular-products [alt="Red Duck"]').click();
     }
@@ -22,3 +38,5 @@ export class BuyPopularProducts {
     }
     
 }
+
+export const popularDucks = new BuyPopularProducts();
